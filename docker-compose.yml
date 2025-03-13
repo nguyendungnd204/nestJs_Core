@@ -1,0 +1,21 @@
+version: '3'
+services:
+  db:  
+    image: postgres
+    restart: always
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080  # Thay đổi từ 8080 thành 8081
+    depends_on:
+      - db  # Đảm bảo Adminer khởi động sau PostgreSQL
